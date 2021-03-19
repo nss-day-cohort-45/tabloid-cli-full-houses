@@ -19,6 +19,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 4) Post Management");
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
+            Console.WriteLine(" 7) Background Color Options");
             Console.WriteLine(" 0) Exit");
 
             Console.Write("> ");
@@ -31,6 +32,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": throw new NotImplementedException();
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
+                case "7": 
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
@@ -38,6 +40,38 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
+
+
+            void BackgroundColor()
+            {
+                while (choice == "7")
+                {
+
+                    Console.WriteLine(@"Select a Background Color
+                            1) blue
+                            2) green
+                            3) red");
+                    int chosenColor = int.Parse(Console.ReadLine());
+                    if (chosenColor == 1)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.Clear();
+
+                    }
+                    else if (chosenColor == 2)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Green;
+                        Console.Clear();
+                    }
+                    else if (chosenColor == 3)
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.Clear();
+                    }
+
+                }
+            }
+        }
         }
     }
-}
+
