@@ -13,6 +13,8 @@ namespace TabloidCLI.UserInterfaceManagers
         public TagManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
+            _tagRepository = new TagRepository(connectionString);
+            _connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute()

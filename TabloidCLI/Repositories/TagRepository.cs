@@ -95,7 +95,9 @@ namespace TabloidCLI.Repositories
                     cmd.CommandText = @"UPDATE Tag
                                         SET Name = @name
                                         Where ID = @id";
-                    cmd.Parameters.AddWithValue("@tag", tag.Name);
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
+                    
 
                     cmd.ExecuteNonQuery();
                 }
