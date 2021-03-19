@@ -8,12 +8,12 @@ namespace TabloidCLI.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime PublishDateTime { get; set; }
+        public DateTime CreateDateTime { get; set; }
         public List<Journal> Journals { get; set; } = new List<Journal>();
 
         public override string ToString()
         {
-            return $" {PublishDateTime} {Title} ({Content})";
+            return $" {CreateDateTime} {Title} ({Content})";
         }
     }
 }
