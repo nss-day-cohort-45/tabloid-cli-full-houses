@@ -19,12 +19,12 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Journal (Title, Content, CreateDateTime
+                    cmd.CommandText = @"INSERT INTO Journal (Title, Content, CreateDateTime)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@title, @content, @createDateTime";
+                                        VALUES (@title, @content, @createDateTime)";
                     cmd.Parameters.AddWithValue("@title", jEntry.Title);
                     cmd.Parameters.AddWithValue("@content", jEntry.Content);
-                    cmd.Parameters.AddWithValue("@publishDateTime", jEntry.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@createDateTime", jEntry.CreateDateTime);
                     int id = (int)cmd.ExecuteScalar();
 
                     jEntry.Id = id;
@@ -108,7 +108,7 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"UPDATE Journal
                                         SET Title = @title,
-                                            Content = @content,
+                                            Content = @content
                                         Where ID = @id";
                     cmd.Parameters.AddWithValue("@title", entry.Title);
                     cmd.Parameters.AddWithValue("@content", entry.Content);

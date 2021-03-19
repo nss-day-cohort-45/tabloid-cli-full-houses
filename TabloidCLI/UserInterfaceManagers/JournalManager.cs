@@ -102,6 +102,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Content: ");
             journal.Content = Console.ReadLine();
 
+            journal.CreateDateTime = System.DateTime.Now;
+
             _journalRepository.Insert(journal);
         }
 
