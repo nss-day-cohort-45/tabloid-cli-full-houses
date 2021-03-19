@@ -121,7 +121,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             Console.Write("New content (blank to leave unchanged: ");
             string content = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(content)
+            if (!string.IsNullOrWhiteSpace(content))
             {
                 journalToEdit.Content = content;
             }
