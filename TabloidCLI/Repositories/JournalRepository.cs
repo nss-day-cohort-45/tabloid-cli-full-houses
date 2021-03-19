@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
+using TabloidCLI.UserInterfaceManagers;
 
-namespace TabloidCLI
+namespace TabloidCLI.Repositories
 {
     public class JournalRepository : DatabaseConnector, IRepository<Journal>
     {
