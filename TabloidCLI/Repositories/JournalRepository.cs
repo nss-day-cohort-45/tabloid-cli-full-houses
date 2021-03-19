@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
 
-namespace TabloidCLI.Repositories
+namespace TabloidCLI
 {
     public class JournalRepository : DatabaseConnector, IRepository<Journal>
     {
 
         public JournalRepository(string connectionString) : base(connectionString) {  }
 
-        public void Add(Journal jEntry)
+        public void Insert(Journal jEntry)
         {
             using (SqlConnection conn = Connection)
             {
@@ -30,7 +30,38 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        public List<Journal> List()
+        public Journal Get(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Title, Content FROM Journal Where Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Journal entry = null;
+
+                    if (reader.Read())
+                    {
+                        entry = new Journal
+                        {
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content"))
+                        };
+                    }
+
+                    reader.Close();
+
+                    return entry;
+                }
+            }
+        }
+
+
+
+        public List<Journal> GetAll()
         {
             using (SqlConnection conn = Connection)
             {
@@ -66,7 +97,7 @@ namespace TabloidCLI.Repositories
         
         }
 
-        public void Edit(Journal entry)
+        public void Update(Journal entry)
         {
             using (SqlConnection conn = Connection)
             {
@@ -86,7 +117,19 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        public Void 
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Journal WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
 
 
 
