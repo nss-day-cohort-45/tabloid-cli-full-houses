@@ -13,7 +13,7 @@ namespace TabloidCLI.Models
 
         public override string ToString()
         {
-            return $" {PublishDateTime} {Title} ({Content})";
+            return $" {CreateDateTime} {Title} ({Content})";
         }
     }
 }
