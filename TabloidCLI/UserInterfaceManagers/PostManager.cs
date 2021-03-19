@@ -74,16 +74,63 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
             Console.Write("Publication Date: ");
-            post.PublishDateTime = System.DateTime.Now;
+            post.PublishDateTime = DateTime.Now;
+            Console.WriteLine(post.PublishDateTime);
+
+//-------------------------------------------------------------------
+           
 
             Console.Write("Choose an author: ");
-            
-            post.Author = Console.ReadLine();
 
-            Console.Write("Blog: ");
-            post.Blog = Console.ReadLine();
+            void ListAuthors()
+            {
+                List<Author> authors = _authorRepository.GetAll();
+                foreach (Author author in authors)
+                {
+                    Console.WriteLine(author);
+                }
+            }
+
+            Author Choose(string prompt = null)
+            {
+                if (prompt == null)
+                {
+                    prompt = "Please choose an Author:";
+                }
+
+                Console.WriteLine(prompt);
+
+                List<Author> authors = _authorRepository.GetAll();
+
+                for (int i = 0; i < authors.Count; i++)
+                {
+                    Author author = authors[i];
+                    Console.WriteLine($" {i + 1}) {author.FullName}");
+                }
+                Console.Write("> ");
+
+                string input = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(input);
+                    return authors[choice - 1];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Selection");
+                    return null;
+                }
+            }
+
+            ListAuthors();
+            post.Author = Choose();
+            //-------------------------------------------------------------------
+
+            //Console.Write("Blog: ");
+            // post.Blog = Console.ReadLine();
 
             _postRepository.Insert(post);
         }
+
     }
 }
