@@ -5,7 +5,7 @@ using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 using TabloidCLI.UserInterfaceManagers;
 
-namespace TabloidCLI
+namespace TabloidCLI.Repositories
 {
     public class TagRepository : DatabaseConnector, IRepository<Tag>
     {
@@ -41,22 +41,81 @@ namespace TabloidCLI
 
         public Tag Get(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Name, Content FROM Tag Where Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    Tag entry = null;
+
+                    if (reader.Read())
+                    {
+                        entry = new Tag
+                        {
+                            Name = reader.GetString(reader.GetOrdinal("Name"))
+                        };
+                    }
+
+                    reader.Close();
+
+                    return entry;
+                }
+            }
         }
 
         public void Insert(Tag tag)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Tag (Name)
+                                        OUTPUT INSERTED.Id
+                                        VALUES (@name)";
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    int id = (int)cmd.ExecuteScalar();
+
+                    tag.Id = id;
+                }
+            }
         }
 
         public void Update(Tag tag)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Tag
+                                        SET Name = @name
+                                        Where ID = @id";
+                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                    cmd.Parameters.AddWithValue("@id", tag.Id);
+                    
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Tag WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            };
         }
 
         public SearchResults<Author> SearchAuthors(string tagName)
