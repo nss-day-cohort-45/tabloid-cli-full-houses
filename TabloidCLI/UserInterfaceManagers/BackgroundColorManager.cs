@@ -8,15 +8,17 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
 
+        public ColorManager(IUserInterfaceManager parentUI)
+        {
+            _parentUI = parentUI;
+        }
+
 
         public IUserInterfaceManager Execute()
         {
-            Console.WriteLine("Blog Menu");
-            Console.WriteLine(" 1) List Blogs");
-            Console.WriteLine(" 2) Blog Details");
-            Console.WriteLine(" 3) Add Blog");
-            Console.WriteLine(" 4) Edit Blog");
-            Console.WriteLine(" 5) Remove Blog");
+            Console.WriteLine("Color Menu");
+            Console.WriteLine(" 1) Change Foreground Color");
+            Console.WriteLine(" 2) Change Background Color");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -24,27 +26,9 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    List();
-                    return this;
+                    throw new NotImplementedException();
                 case "2":
-                    Blog blog = Choose();
-                    if (blog == null)
-                    {
-                        return this;
-                    }
-                    else
-                    {
-                        return new BlogDetailManager(this, _connectionString, blog.Id);
-                    }
-                case "3":
-                    Add();
-                    return this;
-                case "4":
-                    Edit();
-                    return this;
-                case "5":
-                    Remove();
-                    return this;
+                    throw new NotImplementedException();
                 case "0":
                     return _parentUI;
                 default:
