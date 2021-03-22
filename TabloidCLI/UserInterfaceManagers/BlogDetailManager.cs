@@ -5,7 +5,7 @@ using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
-	internal class BlogDetailManager : IUserInterfaceManager
+    internal class BlogDetailManager : IUserInterfaceManager
     {
         private IUserInterfaceManager _parentUI;
         private BlogRepository _blogRepository;
@@ -13,7 +13,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private TagRepository _tagRepository;
         private int _blogId;
 
-        public BlogDetailManager(IUserInterfaceManager parentUI, stringg connectionString, int blogId)
+        public BlogDetailManager(IUserInterfaceManager parentUI, string connectionString, int blogId)
         {
             _parentUI = parentUI;
             _blogRepository = new BlogRepository(connectionString);
@@ -24,7 +24,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            BlogDetailManager blog = _blogRepository.Get(_blogId);
+            Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"{blog.Title} Details");
             Console.WriteLine(" 1) View");
             Console.WriteLine(" 2) View Blog Posts");
@@ -32,16 +32,16 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 4) Remove Tag");
             Console.WriteLine(" 0) Go Back");
 
-            Console.WriteLine("> ");
+            Console.Write("> ");
             string choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
                     View();
                     return this;
-                case "2":
-                    ViewPosts();
-                    return this;
+                //case "2":
+                //    ViewPosts();
+                //    return this;
                 case "3":
                     AddTag();
                     return this;
@@ -69,9 +69,62 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
-        private void ViewBlogPosts()
+        private void ViewPosts()
         {
-            List<Post> posts = _postRepository.GetByBlog(_blogId);
+        }
+
+        private void AddTag()
+        {
+            Blog blog = _blogRepository.Get(_blogId);
+
+            Console.WriteLine($"Which tag would you like to add to {blog.Title}?");
+            List<Tag> tags = _tagRepository.GetAll();
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _blogRepository.InsertTag(blog, tag);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't add any tags.");
+            }
+        }
+
+        private void RemoveTag()
+        {
+            Blog blog = _blogRepository.Get(_blogId);
+
+            Console.WriteLine($"Which tag would you like to remove from {blog.Title}?");
+            List<Tag> tags = blog.Tags;
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                Tag tag = tags[i];
+                Console.WriteLine($" {i + 1}) {tag.Name}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                Tag tag = tags[choice - 1];
+                _blogRepository.DeleteTag(blog.Id, tag.Id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Invalid Selection. Won't remove any tags.");
+            }
         }
     }
 }
