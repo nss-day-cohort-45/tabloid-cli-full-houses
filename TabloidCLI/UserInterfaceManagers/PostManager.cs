@@ -27,10 +27,11 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("Post Menu");
-            Console.WriteLine(" 1) Add Post");
-            Console.WriteLine(" 2) List Posts");
-            Console.WriteLine(" 3) Remove Post");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Post Details");
+            Console.WriteLine(" 3) Add Post");
             Console.WriteLine(" 4) Edit Post");
+            Console.WriteLine(" 5) Remove Post");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -38,10 +39,26 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    ListPosts();
+                    return this;
+               /* case "2":
+                    Post post = Choose();
+                    if (post == null)
+                    {
+                        return this;
+                    }
+                    else
+                    {
+                        return new PostDetailManager(this, _connectionString, post.Id);
+                    }*/
+                case "3":
                     Add();
                     return this;
-               case "2":
-                    ListPosts();
+                case "4":
+                    Edit();
+                    return this;
+                case "5":
+                    Remove();
                     return this;
                 case "0":
                     return _parentUI;
@@ -50,6 +67,19 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
             }
         }
+
+
+        //-------------------------LIST------------------------------------
+        void ListPosts()
+        {
+            List<Post> posts = _postRepository.GetAll();
+            foreach (Post post in posts)
+            {
+                Console.WriteLine(post.Title);
+                Console.WriteLine(post.Url);
+            }
+        }
+
 
         //--------------------ADD-------------------------
 
@@ -139,17 +169,6 @@ namespace TabloidCLI.UserInterfaceManagers
         }
 
 
-        //-------------------------LIST------------------------------------
-        void ListPosts()
-        {
-            List<Post> posts = _postRepository.GetAll();
-            foreach (Post post in posts)
-            {
-                Console.WriteLine(post.Title);
-                Console.WriteLine(post.Url);
-            }
-        }
-
         //-------------------------CHOOSE POST--------------------------------
 
         private Post Choose(string prompt = null)
@@ -211,6 +230,18 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
             _postRepository.Update(postToEdit);
+        }
+
+
+        //-------------------------REMOVE POST----------------------------------
+
+        private void Remove()
+        {
+            Post postToDelete = Choose("Which post would you like to remove?");
+            if (postToDelete != null)
+            {
+                _postRepository.Delete(postToDelete.Id);
+            }
         }
 
 
