@@ -39,9 +39,9 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     View();
                     return this;
-                //case "2":
-                //    ViewPosts();
-                //    return this;
+                case "2":
+                    ViewPosts();
+                    return this;
                 case "3":
                     AddTag();
                     return this;
@@ -71,6 +71,19 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void ViewPosts()
         {
+            List<Post> posts = _postRepository.GetByBlog(_blogId);
+            if (posts.Count > 0)
+            {
+                foreach (Post post in posts)
+                {
+                    Console.WriteLine(post.Title);
+                }
+                Console.WriteLine();
+            }
+            else 
+            {
+                Console.WriteLine("No posts found.");
+            }
         }
 
         private void AddTag()
