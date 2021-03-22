@@ -41,7 +41,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     ListPosts();
                     return this;
-               /* case "2":
+               case "2":
                     Post post = Choose();
                     if (post == null)
                     {
@@ -50,7 +50,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     else
                     {
                         return new PostDetailManager(this, _connectionString, post.Id);
-                    }*/
+                    }
                 case "3":
                     Add();
                     return this;
@@ -215,7 +215,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New Title (blank to leave unchanged: ");
+            Console.Write("New Title: ");
             string Title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(Title))
             {
