@@ -115,11 +115,13 @@ namespace TabloidCLI.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"INSERT INTO Post (Title, Url, PublishDateTime, b.Title )
-                                                     LEFT JOIN Blog b on p.BlogId = b.Id
-                                                     VALUES (@title, @url, @publishDateTime, blog@)";
+                                                     SELECT Title, Url, PublishDateTime, b.Title FROM Post
+                                                     JOIN Blog b on p.BlogId = b.Id
+                                                     VALUES (@title, @url, @publishDateTime,, @author, blog@)";
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@author", post.Author);
                     cmd.Parameters.AddWithValue("@blog", post.Blog);
 
                     cmd.ExecuteNonQuery();
