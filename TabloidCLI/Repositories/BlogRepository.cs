@@ -26,7 +26,7 @@ namespace TabloidCLI
                     List<Blog> blogs = new List<Blog>();
 
                     SqlDataReader reader = cmd.ExecuteReader();
-                    
+
                     while (reader.Read())
                     {
                         Blog blog = new Blog()
@@ -118,10 +118,11 @@ namespace TabloidCLI
                     cmd.CommandText = @"UPDATE Blog
                                        SET Title = @title,
                                             Url = @url
-                                       WHERE ud = @id";
+                                       WHERE id = @id";
 
                     cmd.Parameters.AddWithValue("@title", blog.Title);
                     cmd.Parameters.AddWithValue("@url", blog.Url);
+                    cmd.Parameters.AddWithValue("@id", blog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
