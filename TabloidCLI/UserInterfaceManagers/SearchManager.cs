@@ -102,16 +102,33 @@ namespace TabloidCLI.UserInterfaceManagers
             string tagName = Console.ReadLine();
             
             SearchResults<Author> aResults = _tagRepository.SearchAuthors(tagName);
-            SearchResults<Blog> bResults = _tagRepository.SearchBlogs(tagName);
-            SearchResults<Post> pResults = _tagRepository.SearchPosts(tagName);
-            if (aResults.NoResultsFound || bResults.NoResultsFound || pResults.NoResultsFound)
+            if (aResults.NoResultsFound)
             {
                 Console.WriteLine($"No results for {tagName}");
             }
             else
             {
+                Console.WriteLine("Author tag found!");
                 aResults.Display();
+            }
+            SearchResults<Blog> bResults = _tagRepository.SearchBlogs(tagName);
+            if (bResults.NoResultsFound)
+            {
+                Console.WriteLine($"No blog results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine("Blog tag found!");
                 bResults.Display();
+            }
+            SearchResults<Post> pResults = _tagRepository.SearchPosts(tagName);
+            if (pResults.NoResultsFound)
+            {
+                Console.WriteLine($"No Post results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine("Post tag found!");
                 pResults.Display();
             }
         }
