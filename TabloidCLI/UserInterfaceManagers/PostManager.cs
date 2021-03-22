@@ -228,6 +228,75 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Url = url;
             }
 
+            Author ChooseAuthor(string prompt = null)
+            {
+                if (prompt == null)
+                {
+                    prompt = "Please choose an Author:";
+                }
+
+                Console.WriteLine(prompt);
+
+                List<Author> authors = _authorRepository.GetAll();
+
+                for (int i = 0; i < authors.Count; i++)
+                {
+                    Author author = authors[i];
+                    Console.WriteLine($" {i + 1}) {author.FullName}");
+                }
+                Console.Write("> ");
+
+                string input = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(input);
+                    return authors[choice - 1];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Selection");
+                    return null;
+                }
+            }
+            postToEdit.Author = ChooseAuthor();
+
+            Blog ChooseBlog(string prompt = null)
+            {
+                if (prompt == null)
+                {
+                    prompt = "Please choose a Blog:";
+                }
+
+                Console.WriteLine(prompt);
+
+                List<Blog> blogs = _blogRepository.GetAll();
+
+                for (int i = 0; i < blogs.Count; i++)
+                {
+                    Blog blog = blogs[i];
+                    Console.WriteLine($" {i + 1}) {blog.Title}");
+                }
+                Console.Write("> ");
+
+                string input = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(input);
+                    return blogs[choice - 1];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Selection");
+                    return null;
+                }
+            }
+            postToEdit.Blog = ChooseBlog();
+
+
+
+
+
+
 
             _postRepository.Update(postToEdit);
         }
