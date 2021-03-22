@@ -32,7 +32,7 @@ namespace TabloidCLI.Repositories
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
-                            PublishDateTime =reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
                         };
                         posts.Add(post);
                     }
@@ -164,7 +164,16 @@ namespace TabloidCLI.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Post WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }
