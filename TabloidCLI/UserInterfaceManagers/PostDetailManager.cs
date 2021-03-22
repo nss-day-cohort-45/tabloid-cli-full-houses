@@ -10,7 +10,6 @@ namespace TabloidCLI.UserInterfaceManagers
     {
 
         private IUserInterfaceManager _parentUI;
-        private AuthorRepository _authorRepository;
         private PostRepository _postRepository;
         private TagRepository _tagRepository;
         private int _postId;
@@ -18,7 +17,6 @@ namespace TabloidCLI.UserInterfaceManagers
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
-            _authorRepository = new AuthorRepository(connectionString);
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
             _postId = postId;
@@ -29,7 +27,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Post post = _postRepository.Get(_postId);
             Console.WriteLine($"{post.Title} Details");
             Console.WriteLine(" 1) View");
-            Console.WriteLine(" 2) Add  Tag");
+            Console.WriteLine(" 2) Add Tag");
             Console.WriteLine(" 3) Remove Tag");
             Console.WriteLine(" 4) Note Management");
             Console.WriteLine(" 0) Go Back");
@@ -39,7 +37,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    ViewPost();
+                    View();
                     return this;
                 case "2":
                     AddTag();
@@ -58,7 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void ViewPost()
+        private void View()
         {
             Post post = _postRepository.Get(_postId);
             Console.WriteLine($"Title: {post.Title}");

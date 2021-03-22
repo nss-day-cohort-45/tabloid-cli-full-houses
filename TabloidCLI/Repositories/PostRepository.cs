@@ -54,6 +54,11 @@ namespace TabloidCLI.Repositories
                     cmd.CommandText = @"SELECT p.id AS PostId,
                                                p.Title,
                                                p.Url,
+                                               t.Id AS TagId,
+                                               t.Name
+                                         FROM Post p 
+                                               LEFT JOIN PostTag pt on p.Id = pt.PostId
+                                               LEFT JOIN Tag t on t.Id = pt.TagId
                                          WHERE p.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -268,17 +273,17 @@ namespace TabloidCLI.Repositories
             }
         }
 
-        public void DeleteTag(int authorId, int tagId)
+        public void DeleteTag(int postId, int tagId)
         {
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM AuthorTag 
-                                         WHERE AuthorId = @authorId AND 
+                    cmd.CommandText = @"DELETE FROM PostTag 
+                                         WHERE PostId = @postId AND 
                                                TagId = @tagId";
-                    cmd.Parameters.AddWithValue("@authorId", authorId);
+                    cmd.Parameters.AddWithValue("@postId", postId);
                     cmd.Parameters.AddWithValue("@tagId", tagId);
 
                     cmd.ExecuteNonQuery();
