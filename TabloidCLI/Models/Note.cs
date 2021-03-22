@@ -13,7 +13,7 @@ namespace TabloidCLI.Models
 
         public List<Note> Notes { get; set; } = new List<Note>();
 
-        public int PostId { get; set; }
+        public Post PostId { get; set; }
 
         public override string ToString()
         {

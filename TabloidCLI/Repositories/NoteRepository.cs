@@ -5,7 +5,7 @@ using TabloidCLI.Models;
 
 namespace TabloidCLI.Repositories
 {
-    class NoteRepository : DatabaseConnector
+    public class NoteRepository : DatabaseConnector
     {
         public NoteRepository(string connectionString) : base(connectionString) { }
 
@@ -16,12 +16,13 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Note (Title, Content, CreateDateTime)
+                    cmd.CommandText = @"INSERT INTO Note (Title, Content, CreateDateTime, PostId)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@title, @content, @createDateTime)";
+                                        VALUES (@title, @content, @createDateTime, @postId)";
                     cmd.Parameters.AddWithValue("@title", note.Title);
                     cmd.Parameters.AddWithValue("@content", note.Content);
                     cmd.Parameters.AddWithValue("@createDateTime", note.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@postId", note.PostId.Id);
                     int id = (int)cmd.ExecuteScalar();
 
                     note.Id = id;

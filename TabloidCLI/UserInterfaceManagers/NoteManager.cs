@@ -10,12 +10,14 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private NoteRepository _noteRepository;
+        private PostRepository _postRepository;
         private string _connectionString;
 
         public NoteManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _noteRepository = new NoteRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -98,7 +100,46 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Content: ");
             note.Content = Console.ReadLine();
 
+            note.CreateDateTime = System.DateTime.Now;
+
+            Console.WriteLine($"Which post would you like to add to {note.Title}?");
+
+            Post Choose(string prompt = null)
+            {
+                if (prompt == null)
+                {
+                    prompt = "Please choose a post:";
+                }
+
+                Console.WriteLine(prompt);
+
+                List<Post> posts = _postRepository.GetAll();
+
+                for (int i = 0; i < posts.Count; i++)
+                {
+                    Post post = posts[i];
+                    Console.WriteLine($" {i + 1}) {post.Title}");
+                }
+                Console.Write("> ");
+
+                string input = Console.ReadLine();
+                try
+                {
+                    int choice = int.Parse(input);
+                    return posts[choice - 1];
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Selection");
+                    return null;
+                }
+            }
+            note.PostId = Choose();
+
+
             _noteRepository.Insert(note);
+
+
         }
 
        
