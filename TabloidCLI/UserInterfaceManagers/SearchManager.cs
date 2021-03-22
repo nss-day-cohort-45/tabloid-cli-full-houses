@@ -29,13 +29,16 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    SearchBlogs();
                     return this;
                 case "2":
                     SearchAuthors();
                     return this;
                 case "3":
+                    SearchPosts();
                     return this;
                 case "4":
+                    SearchAll();
                     return this;
                 case "0":
                     return _parentUI;
@@ -59,6 +62,74 @@ namespace TabloidCLI.UserInterfaceManagers
             else
             {
                 results.Display();
+            }
+        }
+        private void SearchBlogs()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            }
+        }
+        private void SearchPosts()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+
+            SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
+
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            }
+        }
+        private void SearchAll()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
+            
+            SearchResults<Author> aResults = _tagRepository.SearchAuthors(tagName);
+            if (aResults.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine("Author tag found!");
+                aResults.Display();
+            }
+            SearchResults<Blog> bResults = _tagRepository.SearchBlogs(tagName);
+            if (bResults.NoResultsFound)
+            {
+                Console.WriteLine($"No blog results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine("Blog tag found!");
+                bResults.Display();
+            }
+            SearchResults<Post> pResults = _tagRepository.SearchPosts(tagName);
+            if (pResults.NoResultsFound)
+            {
+                Console.WriteLine($"No Post results for {tagName}");
+            }
+            else
+            {
+                Console.WriteLine("Post tag found!");
+                pResults.Display();
             }
         }
     }
