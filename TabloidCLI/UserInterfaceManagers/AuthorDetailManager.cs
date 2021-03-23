@@ -22,37 +22,40 @@ namespace TabloidCLI.UserInterfaceManagers
             _authorId = authorId;
         }
 
-        public IUserInterfaceManager Execute()
+        public IUserInterfaceManager Execute
         {
-            Author author = _authorRepository.Get(_authorId);
-            Console.WriteLine($"{author.FullName} Details");
-            Console.WriteLine(" 1) View");
-            Console.WriteLine(" 2) View Blog Posts");
-            Console.WriteLine(" 3) Add Tag");
-            Console.WriteLine(" 4) Remove Tag");
-            Console.WriteLine(" 0) Go Back");
-
-            Console.Write("> ");
-            string choice = Console.ReadLine();
-            switch (choice)
+            get
             {
-                case "1":
-                    View();
-                    return this;
-                case "2":
-                    ViewBlogPosts();
-                    return this;
-                case "3":
-                    AddTag();
-                    return this;
-                case "4":
-                    RemoveTag();
-                    return this;
-                case "0":
-                    return _parentUI;
-                default:
-                    Console.WriteLine("Invalid Selection");
-                    return this;
+                Author author = _authorRepository.Get(_authorId);
+                Console.WriteLine($"{author.FullName} Details");
+                Console.WriteLine(" 1) View");
+                Console.WriteLine(" 2) View Blog Posts");
+                Console.WriteLine(" 3) Add Tag");
+                Console.WriteLine(" 4) Remove Tag");
+                Console.WriteLine(" 0) Go Back");
+
+                Console.Write("> ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        View();
+                        return this;
+                    case "2":
+                        ViewBlogPosts();
+                        return this;
+                    case "3":
+                        AddTag();
+                        return this;
+                    case "4":
+                        RemoveTag();
+                        return this;
+                    case "0":
+                        return _parentUI;
+                    default:
+                        Console.WriteLine("Invalid Selection");
+                        return this;
+                }
             }
         }
 
