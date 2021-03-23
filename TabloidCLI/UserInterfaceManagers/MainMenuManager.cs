@@ -32,22 +32,20 @@ namespace TabloidCLI.UserInterfaceManagers
                 switch (choice)
                 {
 
-                    case "1": return new JournalManager(this, CONNECTION_STRING);
-                    case "2": return new BlogManager(this, CONNECTION_STRING);
-                    case "3": return new AuthorManager(this, CONNECTION_STRING);
-                    case "4": return new PostManager(this, CONNECTION_STRING);
-                    case "5": return new TagManager(this, CONNECTION_STRING);
-                    case "6": return new SearchManager(this, CONNECTION_STRING);
-                    case "7": return new NoteManager(this, CONNECTION_STRING);
-                    case "8": return new BackgroundManager(this);
-
-                    case "0":
-                        Console.WriteLine("Good bye");
-                        return null;
-                    default:
-                        Console.WriteLine("Invalid Selection");
-                        return this;
-                }
+                case "1": return new JournalManager(this, CONNECTION_STRING);
+                case "2": return new BlogManager(this, CONNECTION_STRING);
+                case "3": return new AuthorManager(this, CONNECTION_STRING);
+                case "4": return new PostManager(this, CONNECTION_STRING);
+                case "5": return new TagManager(this, CONNECTION_STRING);
+                case "6": return new SearchManager(this, CONNECTION_STRING);
+                case "7": 
+                case "0":
+                    Console.WriteLine("Good bye");
+                    return null;
+                default:
+                    Console.WriteLine("Invalid Selection");
+                    return this;
+            }
 
 
                 

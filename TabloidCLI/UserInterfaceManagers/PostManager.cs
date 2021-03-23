@@ -24,50 +24,48 @@ namespace TabloidCLI.UserInterfaceManagers
 
         }
 
-        public IUserInterfaceManager Execute
+        public IUserInterfaceManager Execute()
         {
-            get
-            {
-                Console.WriteLine("Post Menu");
-                Console.WriteLine(" 1) List Posts");
-                Console.WriteLine(" 2) Post Details");
-                Console.WriteLine(" 3) Add Post");
-                Console.WriteLine(" 4) Edit Post");
-                Console.WriteLine(" 5) Remove Post");
-                Console.WriteLine(" 0) Go Back");
+            Console.WriteLine("Post Menu");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Add Post");
+            Console.WriteLine(" 3) Edit Post");
+            Console.WriteLine(" 4) Remove Post");
+            Console.WriteLine(" 5) Note Management");
+            Console.WriteLine(" 6) Post Details");
+            Console.WriteLine(" 0) Go Back");
 
-                Console.Write("> ");
-                string choice = Console.ReadLine();
-                switch (choice)
-                {
-                    case "1":
-                        ListPosts();
+            Console.Write("> ");
+            string choice = Console.ReadLine();
+            switch (choice)
+            {
+                case "1":
+                    ListPosts();
+                    return this;
+               case "2":
+                    Post post = Choose();
+                    if (post == null)
+                    {
                         return this;
-                    case "2":
-                        Post post = Choose();
-                        if (post == null)
-                        {
-                            return this;
-                        }
-                        else
-                        {
-                            return new PostDetailManager(this, _connectionString, post.Id);
-                        }
-                    case "3":
-                        Add();
-                        return this;
-                    case "4":
-                        Edit();
-                        return this;
-                    case "5":
-                        Remove();
-                        return this;
-                    case "0":
-                        return _parentUI;
-                    default:
-                        Console.WriteLine("Invalid Selection");
-                        return this;
-                }
+                    }
+                    else
+                    {
+                        return new PostDetailManager(this, _connectionString, post.Id);
+                    }
+                case "3":
+                    Add();
+                    return this;
+                case "4":
+                    Edit();
+                    return this;
+                case "5":
+                    Remove();
+                    return this;
+                case "0":
+                    return _parentUI;
+                default:
+                    Console.WriteLine("Invalid Selection");
+                    return this;
             }
         }
 
