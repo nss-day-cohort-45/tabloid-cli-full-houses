@@ -18,9 +18,9 @@ namespace TabloidCLI.UserInterfaceManagers
             {
 
                 Console.WriteLine(@"Select a Background Color
- 1) blue
- 2) green
- 3) red
+ 1) Blue
+ 2) Green
+ 3) Red
  4) Goldenrod?
  5) Magenta
  6) Gray with Red
