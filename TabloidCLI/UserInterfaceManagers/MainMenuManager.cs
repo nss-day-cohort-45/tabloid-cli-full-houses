@@ -50,36 +50,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 }
 
 
-                /* void BackgroundColor()
-                {
-                    if (choice == "8")
-                    {
-                        Console.WriteLine(@"Select a Background Color
-                            1) blue
-                            2) green
-                            3) red
-                            0) Go Back");
-                        string chosenColor = Console.ReadLine();
-                        switch (chosenColor)
-                        {
-                            case "1":
-                                Console.BackgroundColor = ConsoleColor.Blue;
-                                Console.Clear();
-                                break;
-                            case "2":
-                                Console.BackgroundColor = ConsoleColor.Green;
-                                Console.Clear();
-                                break;
-                            case "3":
-                                Console.BackgroundColor = ConsoleColor.Red;
-                                Console.Clear();
-                                break;
-                            case "0":
-                                return _parentUI;
-                            default:
-                                Console.WriteLine("Invalid Selection");
-                                break;
-                        } */
+                
                     }
                 }
             }
