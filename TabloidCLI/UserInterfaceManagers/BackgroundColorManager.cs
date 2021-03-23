@@ -25,7 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
  5) Magenta
  6) Gray with Red
  7) DarkGreen with White
- 8) DarkRed with Black
+ 8) Douso Mode (For the people)
  9) White with Black
  10) Enter the Matrix?
  11) Tatiane Mode
@@ -75,7 +75,7 @@ namespace TabloidCLI.UserInterfaceManagers
                         return _parentUI;
                     case "8":
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow ;
                         Console.Clear();
                         return _parentUI;
                     case "9":
