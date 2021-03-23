@@ -141,11 +141,14 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"DELETE FROM Blog
-                                        WHERE id = @id";
+
+                    cmd.CommandText = @"DELETE Post FROM Post INNER JOIN Blog ON Post.BlogId = Blog.Id WHERE Post.BlogId = @id ; 
+                                        DELETE FROM Blog Where id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
+
+                   
                 }
             }
         }
