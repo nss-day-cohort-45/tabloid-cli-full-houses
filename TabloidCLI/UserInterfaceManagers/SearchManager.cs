@@ -15,36 +15,39 @@ namespace TabloidCLI.UserInterfaceManagers
             _tagRepository = new TagRepository(connectionString);
         }
 
-        public IUserInterfaceManager Execute()
+        public IUserInterfaceManager Execute
         {
-            Console.WriteLine("Search Menu");
-            Console.WriteLine(" 1) Search Blogs");
-            Console.WriteLine(" 2) Search Authors");
-            Console.WriteLine(" 3) Search Posts");
-            Console.WriteLine(" 4) Search All");
-            Console.WriteLine(" 0) Go Back");
-
-            Console.Write("> ");
-            string choice = Console.ReadLine();
-            switch (choice)
+            get
             {
-                case "1":
-                    SearchBlogs();
-                    return this;
-                case "2":
-                    SearchAuthors();
-                    return this;
-                case "3":
-                    SearchPosts();
-                    return this;
-                case "4":
-                    SearchAll();
-                    return this;
-                case "0":
-                    return _parentUI;
-                default:
-                    Console.WriteLine("Invalid Selection");
-                    return this;
+                Console.WriteLine("Search Menu");
+                Console.WriteLine(" 1) Search Blogs");
+                Console.WriteLine(" 2) Search Authors");
+                Console.WriteLine(" 3) Search Posts");
+                Console.WriteLine(" 4) Search All");
+                Console.WriteLine(" 0) Go Back");
+
+                Console.Write("> ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        SearchBlogs();
+                        return this;
+                    case "2":
+                        SearchAuthors();
+                        return this;
+                    case "3":
+                        SearchPosts();
+                        return this;
+                    case "4":
+                        SearchAll();
+                        return this;
+                    case "0":
+                        return _parentUI;
+                    default:
+                        Console.WriteLine("Invalid Selection");
+                        return this;
+                }
             }
         }
 

@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private NoteRepository _noteRepository;
         private PostRepository _postRepository;
         private string _connectionString;
+        private string connectionString;
 
         public NoteManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -21,32 +22,40 @@ namespace TabloidCLI.UserInterfaceManagers
             _connectionString = connectionString;
         }
 
-        public IUserInterfaceManager Execute()
+        public NoteManager(string connectionString)
         {
-            Console.WriteLine("Note Menu");
-            Console.WriteLine(" 1) List Notes");
-            Console.WriteLine(" 2) Add Note");
-            Console.WriteLine(" 3) Remove Note");
-            Console.WriteLine(" 0) Go Back");
+            this.connectionString = connectionString;
+        }
 
-            Console.Write("> ");
-            string choice = Console.ReadLine();
-            switch (choice)
+        public IUserInterfaceManager Execute
+        {
+            get
             {
-                case "1":
-                    List();
-                    return this;
-                case "2":
-                    Add();
-                    return this;
-                case "3":
-                    Remove();
-                    return this;
-                case "0":
-                    return _parentUI;
-                default:
-                    Console.WriteLine("Invalid Selection");
-                    return this;
+                Console.WriteLine("Note Menu");
+                Console.WriteLine(" 1) List Notes");
+                Console.WriteLine(" 2) Add Note");
+                Console.WriteLine(" 3) Remove Note");
+                Console.WriteLine(" 0) Go Back");
+
+                Console.Write("> ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        List();
+                        return this;
+                    case "2":
+                        Add();
+                        return this;
+                    case "3":
+                        Remove();
+                        return this;
+                    case "0":
+                        return _parentUI;
+                    default:
+                        Console.WriteLine("Invalid Selection");
+                        return this;
+                }
             }
         }
 

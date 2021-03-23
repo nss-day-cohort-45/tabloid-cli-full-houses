@@ -2,6 +2,6 @@
 {
     public interface IUserInterfaceManager
     {
-        IUserInterfaceManager Execute();
+        IUserInterfaceManager Execute { get; }
     }
 }
