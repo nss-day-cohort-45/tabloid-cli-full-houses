@@ -32,6 +32,7 @@ namespace TabloidCLI.UserInterfaceManagers
  12) Jordan Mode
  13) Joshua Mode
  14) Back to basics
+ 15) The Safe McDonalds Mode
  0) Go Back");
                 Console.Write("Make a theme selection > ");
                 string chosenColor = Console.ReadLine();
@@ -106,6 +107,11 @@ namespace TabloidCLI.UserInterfaceManagers
                     case "14":
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
+                        Console.Clear();
+                        return _parentUI;
+                    case "15":
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.Clear();
                         return _parentUI;
                     case "0":
