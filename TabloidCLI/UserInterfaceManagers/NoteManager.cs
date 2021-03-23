@@ -12,6 +12,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private NoteRepository _noteRepository;
         private PostRepository _postRepository;
         private string _connectionString;
+        private string connectionString;
 
         public NoteManager(IUserInterfaceManager parentUI, string connectionString)
         {
@@ -19,6 +20,11 @@ namespace TabloidCLI.UserInterfaceManagers
             _noteRepository = new NoteRepository(connectionString);
             _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
+        }
+
+        public NoteManager(string connectionString)
+        {
+            this.connectionString = connectionString;
         }
 
         public IUserInterfaceManager Execute
