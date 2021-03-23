@@ -148,7 +148,8 @@ namespace TabloidCLI
                 {
 
                    
-                    cmd.CommandText = @"DELETE Post FROM Post INNER JOIN Author ON Post.AuthorId = Author.Id WHERE Post.Authorid = @pId ; DELETE FROM Author WHERE Id = @id";
+                    cmd.CommandText = @"DELETE Post FROM Post INNER JOIN Author ON Post.AuthorId = Author.Id WHERE Post.Authorid = @pId ;
+                                        DELETE FROM Author WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
