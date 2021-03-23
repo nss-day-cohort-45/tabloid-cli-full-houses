@@ -4,7 +4,7 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class MainMenuManager : IUserInterfaceManager
     {
-        private readonly IUserInterfaceManager _parentUI;
+
         private const string CONNECTION_STRING =
             @"Data Source=localhost\SQLEXPRESS;Database=TabloidCLI;Integrated Security=True";
 
